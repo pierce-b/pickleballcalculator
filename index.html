@@ -1,0 +1,523 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pickleball Calculators – Skill Rating, Win %, Serve Speed & More</title>
+<meta name="description" content="Free pickleball calculators: estimate your DUPR rating, win probability, ideal partner level, serve speed, calorie burn, and paddle power. Get instant results.">
+<meta name="keywords" content="pickleball calculator, DUPR rating estimator, pickleball win probability, pickleball skill level, pickleball tools">
+<meta property="og:title" content="Pickleball Calculators – 6 Free Tools">
+<meta property="og:description" content="Find your skill rating, win odds, ideal partner, serve speed, calories burned, and paddle score.">
+<meta property="og:type" content="website">
+<link rel="canonical" href="https://pickleballcalculators.com/">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+:root{
+  --g:#4ADE80;--g2:#22C55E;--g-dim:#166534;--glow:rgba(74,222,128,0.15);
+  --dark:#080F0A;--mid:#0D1A10;--card:#111B14;--card2:#152019;
+  --border:rgba(74,222,128,0.14);--border2:rgba(74,222,128,0.28);
+  --white:#F0FDF4;--muted:rgba(240,253,244,0.45);
+  --yellow:#FDE047;--radius:10px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--dark);color:var(--white);font-family:'DM Sans',sans-serif;font-weight:300;min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 70% 50% at 15% 10%,rgba(74,222,128,0.06) 0%,transparent 60%),radial-gradient(ellipse 50% 70% at 85% 90%,rgba(74,222,128,0.04) 0%,transparent 60%);pointer-events:none;z-index:0;}
+body::after{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(74,222,128,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(74,222,128,0.025) 1px,transparent 1px);background-size:56px 56px;pointer-events:none;z-index:0;}
+
+/* NAV */
+nav{position:sticky;top:0;z-index:50;background:rgba(8,15,10,0.92);backdrop-filter:blur(14px);border-bottom:1px solid var(–border);padding:0 20px;display:flex;align-items:center;justify-content:space-between;height:56px;gap:12px;}
+.nav-logo{font-family:‘Syne’,sans-serif;font-weight:800;font-size:1.05rem;display:flex;align-items:center;gap:8px;white-space:nowrap;}
+.nav-logo .ball{width:20px;height:20px;background:var(–yellow);border-radius:50%;box-shadow:0 0 10px rgba(253,224,71,0.5);}
+.nav-links{display:flex;gap:5px;overflow-x:auto;scrollbar-width:none;}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-pill{white-space:nowrap;padding:5px 11px;border:1px solid transparent;border-radius:100px;font-size:0.7rem;font-weight:500;letter-spacing:0.04em;color:var(–muted);cursor:pointer;background:none;font-family:‘DM Sans’,sans-serif;transition:all 0.16s;}
+.nav-pill:hover{color:var(–white);border-color:var(–border2);}
+.nav-pill.active{background:var(–glow);border-color:var(–g);color:var(–g);}
+
+/* HERO */
+.hero{position:relative;z-index:2;text-align:center;padding:60px 20px 44px;}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(74,222,128,0.07);border:1px solid rgba(74,222,128,0.22);border-radius:100px;padding:5px 14px 5px 10px;font-size:0.68rem;font-weight:500;letter-spacing:0.13em;text-transform:uppercase;color:var(–g);margin-bottom:20px;}
+.live-dot{width:7px;height:7px;border-radius:50%;background:var(–g);animation:pulse 2s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.35;transform:scale(0.7)}}
+h1{font-family:‘Syne’,sans-serif;font-weight:800;font-size:clamp(2.8rem,7vw,5.2rem);line-height:1.0;letter-spacing:-0.025em;}
+h1 .line2{color:var(–g);display:block;}
+.hero-sub{margin-top:14px;font-size:clamp(0.88rem,2vw,1rem);color:var(–muted);max-width:500px;margin-inline:auto;line-height:1.65;}
+.hero-stats{display:flex;justify-content:center;gap:28px;margin-top:26px;flex-wrap:wrap;}
+.hs-item .num{font-family:‘Syne’,sans-serif;font-weight:800;font-size:1.7rem;color:var(–g);display:block;}
+.hs-item .lbl{font-size:0.68rem;letter-spacing:0.13em;text-transform:uppercase;color:var(–muted);}
+
+/* AD ZONE */
+.ad-zone{position:relative;z-index:2;max-width:960px;margin:0 auto 28px;padding:0 20px;}
+.ad-box{border:1px dashed rgba(74,222,128,0.09);border-radius:var(–radius);padding:16px;text-align:center;color:rgba(240,253,244,0.13);font-size:0.68rem;letter-spacing:0.14em;text-transform:uppercase;}
+
+/* TOOLS SECTION */
+.tools-section{position:relative;z-index:2;max-width:960px;margin:0 auto;padding:0 20px 80px;}
+.tools-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:12px;}
+@media(max-width:680px){.tools-grid{grid-template-columns:1fr 1fr;}}
+@media(max-width:440px){.tools-grid{grid-template-columns:1fr;}}
+.tool-card{background:var(–card);border:1px solid var(–border);border-radius:var(–radius);padding:20px 16px 16px;cursor:pointer;transition:all 0.2s;position:relative;overflow:hidden;}
+.tool-card::before{content:’’;position:absolute;top:0;left:0;right:0;height:2px;background:var(–g);transform:scaleX(0);transform-origin:left;transition:transform 0.28s;}
+.tool-card:hover{border-color:var(–border2);background:var(–card2);transform:translateY(-2px);box-shadow:0 8px 28px rgba(74,222,128,0.07);}
+.tool-card:hover::before,.tool-card.active-card::before{transform:scaleX(1);}
+.tool-card.active-card{border-color:var(–g);background:var(–card2);}
+.tool-icon{font-size:1.5rem;margin-bottom:9px;display:block;}
+.tool-name{font-family:‘Syne’,sans-serif;font-weight:700;font-size:0.88rem;margin-bottom:5px;}
+.tool-desc{font-size:0.71rem;color:var(–muted);line-height:1.5;}
+
+/* PANEL */
+.calc-panel-wrap{display:none;background:var(–card);border:1px solid var(–border2);border-radius:var(–radius);padding:32px;margin-bottom:12px;animation:slideDown 0.28s ease both;}
+@keyframes slideDown{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:translateY(0)}}
+.calc-panel-wrap.open{display:block;}
+@media(max-width:520px){.calc-panel-wrap{padding:22px 16px;}}
+.panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:22px;}
+.panel-title{font-family:‘Syne’,sans-serif;font-weight:700;font-size:1.1rem;}
+.panel-close{width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,0.04);border:1px solid var(–border);color:var(–muted);font-size:0.9rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.14s;}
+.panel-close:hover{background:rgba(255,255,255,0.09);color:var(–white);}
+
+/* FORM */
+.f-grid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-bottom:13px;}
+@media(max-width:460px){.f-grid{grid-template-columns:1fr;}}
+.f-field{display:flex;flex-direction:column;gap:7px;}
+.f-label{font-size:0.68rem;letter-spacing:0.13em;text-transform:uppercase;color:var(–muted);}
+.f-input,.f-select{background:rgba(255,255,255,0.04);border:1px solid rgba(74,222,128,0.14);border-radius:6px;color:var(–white);font-family:‘DM Sans’,sans-serif;font-size:0.93rem;padding:11px 13px;outline:none;transition:border 0.18s;-webkit-appearance:none;appearance:none;}
+.f-select{background-image:url(“data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ width=‘10’ height=‘6’%3E%3Cpath d=‘M0 0l5 6 5-6z’ fill=’%234ADE80’ opacity=’.45’/%3E%3C/svg%3E”);background-repeat:no-repeat;background-position:right 12px center;padding-right:30px;cursor:pointer;}
+.f-select option{background:#111B14;}
+.f-input:focus,.f-select:focus{border-color:var(–g);}
+
+/* SLIDER */
+.slider-wrap{margin-bottom:15px;}
+.slider-top{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px;}
+.slider-label{font-size:0.68rem;letter-spacing:0.13em;text-transform:uppercase;color:var(–muted);}
+.slider-val{font-family:‘Syne’,sans-serif;font-weight:700;font-size:1.05rem;color:var(–g);}
+input[type=range]{-webkit-appearance:none;width:100%;height:3px;border-radius:2px;background:rgba(74,222,128,0.1);outline:none;}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:17px;height:17px;border-radius:50%;background:var(–g);cursor:pointer;box-shadow:0 0 8px rgba(74,222,128,0.45);transition:transform 0.13s;}
+input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.25);}
+
+/* PILLS */
+.pills-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:15px;}
+.pill-btn{padding:7px 13px;border:1px solid rgba(74,222,128,0.16);border-radius:100px;background:none;color:var(–muted);font-family:‘DM Sans’,sans-serif;font-size:0.76rem;cursor:pointer;transition:all 0.14s;}
+.pill-btn:hover{border-color:var(–g);color:var(–white);}
+.pill-btn.on{border-color:var(–g);background:var(–glow);color:var(–g);}
+
+/* GO BTN */
+.go-btn{width:100%;padding:15px;background:var(–g);border:none;border-radius:8px;color:#052e16;font-family:‘Syne’,sans-serif;font-weight:700;font-size:0.86rem;letter-spacing:0.07em;text-transform:uppercase;cursor:pointer;transition:all 0.18s;margin-top:6px;}
+.go-btn:hover{background:#6EF09B;transform:translateY(-1px);box-shadow:0 6px 18px rgba(74,222,128,0.22);}
+
+/* GATE */
+.gate{display:none;position:fixed;inset:0;z-index:200;background:rgba(5,10,7,0.94);backdrop-filter:blur(10px);align-items:center;justify-content:center;padding:20px;}
+.gate.show{display:flex;animation:fadeIn 0.22s ease both;}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+.gate-box{background:var(–card2);border:1px solid rgba(74,222,128,0.28);border-radius:14px;padding:40px 36px 32px;max-width:430px;width:100%;text-align:center;animation:popUp 0.28s cubic-bezier(0.34,1.56,0.64,1) both;}
+@keyframes popUp{from{opacity:0;transform:scale(0.93)}to{opacity:1;transform:scale(1)}}
+@media(max-width:460px){.gate-box{padding:30px 20px 26px;}}
+.gate-ball{width:52px;height:52px;background:var(–yellow);border-radius:50%;margin:0 auto 18px;box-shadow:0 0 28px rgba(253,224,71,0.4);display:flex;align-items:center;justify-content:center;font-size:1.4rem;}
+.gate-box h2{font-family:‘Syne’,sans-serif;font-weight:700;font-size:1.4rem;margin-bottom:8px;}
+.gate-box p{font-size:0.83rem;color:var(–muted);margin-bottom:22px;line-height:1.65;}
+.gate-tool-name{color:var(–g);font-weight:500;}
+.gate-input{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(74,222,128,0.2);border-radius:8px;color:var(–white);font-family:‘DM Sans’,sans-serif;font-size:1rem;padding:12px 15px;outline:none;margin-bottom:10px;transition:border 0.18s;}
+.gate-input:focus{border-color:var(–g);}
+.gate-input.err{border-color:#f87171;}
+.gate-btn{width:100%;padding:14px;background:var(–g);border:none;border-radius:8px;color:#052e16;font-family:‘Syne’,sans-serif;font-weight:700;font-size:0.86rem;letter-spacing:0.06em;text-transform:uppercase;cursor:pointer;transition:all 0.18s;}
+.gate-btn:hover{background:#6EF09B;transform:translateY(-1px);}
+.gate-fine{margin-top:11px;font-size:0.66rem;color:rgba(240,253,244,0.17);}
+
+/* RESULTS */
+.result-wrap{display:none;animation:fadeUp 0.4s ease both;}
+.result-wrap.show{display:block;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.result-hero{background:linear-gradient(135deg,var(–card2),rgba(21,32,25,0.95));border:1px solid rgba(74,222,128,0.26);border-radius:var(–radius);padding:34px 26px;text-align:center;margin-bottom:11px;position:relative;overflow:hidden;}
+.result-hero::after{content:’’;position:absolute;bottom:-50px;right:-50px;width:200px;height:200px;background:radial-gradient(circle,rgba(74,222,128,0.09),transparent 70%);}
+.r-label{font-size:0.67rem;letter-spacing:0.2em;text-transform:uppercase;color:var(–g);margin-bottom:8px;}
+.r-big{font-family:‘Syne’,sans-serif;font-weight:800;font-size:clamp(3.5rem,10vw,6rem);line-height:1;letter-spacing:-0.03em;}
+.r-big .accent{color:var(–g);}
+.r-tier{display:inline-block;margin-top:10px;background:rgba(74,222,128,0.09);border:1px solid rgba(74,222,128,0.26);border-radius:100px;padding:5px 16px;font-size:0.77rem;font-weight:500;color:var(–g);}
+.stat-row{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:11px;}
+@media(max-width:420px){.stat-row{grid-template-columns:1fr 1fr;}}
+.stat-box{background:rgba(255,255,255,0.025);border:1px solid var(–border);border-radius:8px;padding:15px 11px;text-align:center;}
+.stat-box .s-label{font-size:0.63rem;letter-spacing:0.12em;text-transform:uppercase;color:var(–muted);margin-bottom:5px;}
+.stat-box .s-val{font-family:‘Syne’,sans-serif;font-weight:700;font-size:1.25rem;}
+.insights-box{background:rgba(74,222,128,0.04);border:1px solid rgba(74,222,128,0.13);border-radius:var(–radius);padding:20px 22px;margin-bottom:11px;}
+.insights-box h3{font-family:‘Syne’,sans-serif;font-size:0.88rem;color:var(–g);margin-bottom:11px;}
+.insights-box ul{list-style:none;}
+.insights-box ul li{font-size:0.8rem;color:var(–muted);padding:5px 0 5px 17px;position:relative;line-height:1.55;border-bottom:1px solid rgba(74,222,128,0.05);}
+.insights-box ul li:last-child{border-bottom:none;}
+.insights-box ul li::before{content:‘→’;position:absolute;left:0;color:var(–g);font-size:0.68rem;top:7px;}
+.aff-strip{background:rgba(255,255,255,0.02);border:1px solid var(–border);border-radius:var(–radius);padding:20px;margin-bottom:11px;}
+.aff-strip-hd{font-size:0.65rem;letter-spacing:0.18em;text-transform:uppercase;color:var(–muted);text-align:center;margin-bottom:13px;}
+.aff-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;}
+@media(max-width:480px){.aff-grid{grid-template-columns:1fr;}}
+.aff-card{display:block;text-decoration:none;border:1px solid rgba(74,222,128,0.13);border-radius:8px;padding:13px 11px;text-align:center;transition:all 0.18s;}
+.aff-card:hover{border-color:var(–g);background:var(–glow);}
+.aff-card .a-icon{font-size:1.1rem;display:block;margin-bottom:5px;}
+.aff-card .a-name{font-size:0.78rem;font-weight:500;color:var(–white);margin-bottom:3px;}
+.aff-card .a-desc{font-size:0.67rem;color:var(–muted);line-height:1.4;margin-bottom:7px;}
+.aff-card .a-cta{font-size:0.63rem;letter-spacing:0.11em;text-transform:uppercase;color:var(–g);}
+.reset-btn{display:block;width:100%;padding:12px;background:none;border:1px solid var(–border);border-radius:8px;color:var(–muted);font-family:‘DM Sans’,sans-serif;font-size:0.8rem;cursor:pointer;transition:all 0.16s;}
+.reset-btn:hover{border-color:var(–g);color:var(–white);}
+
+/* FOOTER */
+footer{position:relative;z-index:2;border-top:1px solid var(–border);padding:28px 22px;display:flex;flex-wrap:wrap;gap:16px;justify-content:space-between;align-items:center;}
+.footer-logo{font-family:‘Syne’,sans-serif;font-weight:800;font-size:0.95rem;display:flex;align-items:center;gap:7px;}
+.footer-links{display:flex;gap:14px;flex-wrap:wrap;}
+.footer-links a{font-size:0.72rem;color:var(–muted);text-decoration:none;transition:color 0.14s;}
+.footer-links a:hover{color:var(–g);}
+.footer-copy{width:100%;font-size:0.67rem;color:rgba(240,253,244,0.14);letter-spacing:0.05em;}
+</style>
+
+</head>
+<body>
+
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebApplication","name":"Pickleball Calculators","description":"Free pickleball calculators for skill rating, win probability, partner matching, serve speed, calorie burn, and paddle power.","url":"https://pickleballcalculators.com","applicationCategory":"SportsApplication","offers":{"@type":"Offer","price":"0","priceCurrency":"USD"}}</script>
+
+<nav>
+  <div class="nav-logo"><span class="ball"></span>PickleballCalc</div>
+  <div class="nav-links">
+    <button class="nav-pill active" onclick="scrollToTools()">All Tools</button>
+    <button class="nav-pill" onclick="openTool(0)">Rating</button>
+    <button class="nav-pill" onclick="openTool(1)">Win %</button>
+    <button class="nav-pill" onclick="openTool(2)">Partner</button>
+    <button class="nav-pill" onclick="openTool(3)">Speed</button>
+    <button class="nav-pill" onclick="openTool(4)">Calories</button>
+    <button class="nav-pill" onclick="openTool(5)">Paddle</button>
+  </div>
+</nav>
+
+<header class="hero">
+  <div class="hero-badge"><div class="live-dot"></div>6 Free Tools</div>
+  <h1>Pickleball<span class="line2">Calculators</span></h1>
+  <p class="hero-sub">Estimate your skill rating, predict match outcomes, find your ideal partner, measure serve speed, track calories, and score your paddle.</p>
+  <div class="hero-stats">
+    <div class="hs-item"><span class="num">6</span><span class="lbl">Free tools</span></div>
+    <div class="hs-item"><span class="num">30s</span><span class="lbl">To results</span></div>
+    <div class="hs-item"><span class="num">100%</span><span class="lbl">Free forever</span></div>
+  </div>
+</header>
+
+<div class="ad-zone"><div class="ad-box">Google AdSense — 728×90 Leaderboard — replace with your ad code</div></div>
+
+<main class="tools-section" id="toolsSection">
+
+  <div class="tools-grid">
+    <div class="tool-card" id="card-0" onclick="openTool(0)"><span class="tool-icon">🏆</span><div class="tool-name">Skill Rating Estimator</div><div class="tool-desc">Estimate your DUPR or UTPR level based on your playing habits, consistency, and background.</div></div>
+    <div class="tool-card" id="card-1" onclick="openTool(1)"><span class="tool-icon">⚡</span><div class="tool-name">Win Probability</div><div class="tool-desc">Enter both teams' skill levels and get your win percentage plus match strategy advice.</div></div>
+    <div class="tool-card" id="card-2" onclick="openTool(2)"><span class="tool-icon">🤝</span><div class="tool-name">Ideal Partner Finder</div><div class="tool-desc">Find the perfect partner rating based on your goals — win more, improve faster, or just have fun.</div></div>
+    <div class="tool-card" id="card-3" onclick="openTool(3)"><span class="tool-icon">🎯</span><div class="tool-name">Serve Speed Calculator</div><div class="tool-desc">Estimate your serve or drive speed from distance and travel time. See how you rank by skill level.</div></div>
+    <div class="tool-card" id="card-4" onclick="openTool(4)"><span class="tool-icon">🔥</span><div class="tool-name">Calorie Burn Calculator</div><div class="tool-desc">How many calories did you burn today? Enter your weight, session length, and intensity.</div></div>
+    <div class="tool-card" id="card-5" onclick="openTool(5)"><span class="tool-icon">🏓</span><div class="tool-name">Paddle Power Score</div><div class="tool-desc">Rate your paddle on 5 dimensions and get a composite score plus upgrade recommendations.</div></div>
+  </div>
+
+  <!-- PANEL 0 -->
+
+  <div class="calc-panel-wrap" id="panel-0">
+    <div class="panel-header"><div class="panel-title">🏆 Skill Rating Estimator</div><button class="panel-close" onclick="closePanel(0)">✕</button></div>
+    <div class="slider-wrap"><div class="slider-top"><span class="slider-label">Years playing</span><span class="slider-val" id="p0-yv">1</span></div><input type="range" id="p0-y" min="0" max="12" step="0.5" value="1" oninput="document.getElementById('p0-yv').textContent=this.value"></div>
+    <div class="slider-wrap"><div class="slider-top"><span class="slider-label">Days per week</span><span class="slider-val" id="p0-dv">3</span></div><input type="range" id="p0-d" min="1" max="7" step="1" value="3" oninput="document.getElementById('p0-dv').textContent=this.value"></div>
+    <div class="f-grid">
+      <div class="f-field"><label class="f-label">Sport background</label><select class="f-select" id="p0-bg"><option value="0">No racket background</option><option value="0.25">Recreational tennis</option><option value="0.55">Competitive tennis/squash</option><option value="0.35">Ping pong / badminton</option></select></div>
+      <div class="f-field"><label class="f-label">Players you usually beat</label><select class="f-select" id="p0-beat"><option value="2.5">Beginners (2.5–)</option><option value="3.0" selected>Casual rec (3.0)</option><option value="3.5">Solid rec (3.5)</option><option value="4.0">Club players (4.0)</option><option value="4.5">Tournament (4.5+)</option></select></div>
+    </div>
+    <div class="f-field" style="margin-bottom:13px"><label class="f-label">Dinking consistency</label><div class="pills-row" id="g0-dink"><button class="pill-btn" data-v="0" onclick="setPill('g0-dink',this)">1 – Beginner</button><button class="pill-btn" data-v="0.15" onclick="setPill('g0-dink',this)">2 – Learning</button><button class="pill-btn on" data-v="0.3" onclick="setPill('g0-dink',this)">3 – Solid</button><button class="pill-btn" data-v="0.45" onclick="setPill('g0-dink',this)">4 – Advanced</button><button class="pill-btn" data-v="0.6" onclick="setPill('g0-dink',this)">5 – Elite</button></div></div>
+    <div class="f-field" style="margin-bottom:18px"><label class="f-label">Third shot drop quality</label><div class="pills-row" id="g0-drop"><button class="pill-btn" data-v="0" onclick="setPill('g0-drop',this)">1 – None</button><button class="pill-btn" data-v="0.15" onclick="setPill('g0-drop',this)">2 – Developing</button><button class="pill-btn on" data-v="0.3" onclick="setPill('g0-drop',this)">3 – Consistent</button><button class="pill-btn" data-v="0.45" onclick="setPill('g0-drop',this)">4 – Sharp</button><button class="pill-btn" data-v="0.6" onclick="setPill('g0-drop',this)">5 – Tour Level</button></div></div>
+    <button class="go-btn" onclick="fireGate(0)">Get My Rating →</button>
+  </div>
+
+  <!-- PANEL 1 -->
+
+  <div class="calc-panel-wrap" id="panel-1">
+    <div class="panel-header"><div class="panel-title">⚡ Win Probability Calculator</div><button class="panel-close" onclick="closePanel(1)">✕</button></div>
+    <div class="f-grid">
+      <div class="f-field"><label class="f-label">Your team avg DUPR</label><input class="f-input" type="number" id="p1-a" placeholder="e.g. 3.8" min="2" max="6.5" step="0.1" value="3.8"></div>
+      <div class="f-field"><label class="f-label">Opponent avg DUPR</label><input class="f-input" type="number" id="p1-b" placeholder="e.g. 4.1" min="2" max="6.5" step="0.1" value="4.1"></div>
+      <div class="f-field"><label class="f-label">Location</label><select class="f-select" id="p1-home"><option value="0.05">Our home court</option><option value="0" selected>Neutral</option><option value="-0.04">Away court</option></select></div>
+      <div class="f-field"><label class="f-label">Surface</label><select class="f-select" id="p1-surf"><option value="0">Indoor hard</option><option value="0.02">Outdoor hard</option><option value="-0.02">Concrete (slow)</option></select></div>
+    </div>
+    <button class="go-btn" onclick="fireGate(1)">Calculate Win % →</button>
+  </div>
+
+  <!-- PANEL 2 -->
+
+  <div class="calc-panel-wrap" id="panel-2">
+    <div class="panel-header"><div class="panel-title">🤝 Ideal Partner Finder</div><button class="panel-close" onclick="closePanel(2)">✕</button></div>
+    <div class="slider-wrap"><div class="slider-top"><span class="slider-label">Your DUPR rating</span><span class="slider-val" id="p2-dv">3.5</span></div><input type="range" id="p2-d" min="2.0" max="6.5" step="0.1" value="3.5" oninput="document.getElementById('p2-dv').textContent=parseFloat(this.value).toFixed(1)"></div>
+    <div class="f-grid">
+      <div class="f-field"><label class="f-label">Your main goal</label><select class="f-select" id="p2-goal"><option value="win">Win more matches</option><option value="improve">Improve fastest</option><option value="compete">Tournament prep</option><option value="fun">Casual fun</option></select></div>
+      <div class="f-field"><label class="f-label">Play style</label><select class="f-select" id="p2-style"><option value="banger">Power / Banger</option><option value="dinker" selected>Dink / Control</option><option value="hybrid">Hybrid</option></select></div>
+    </div>
+    <button class="go-btn" onclick="fireGate(2)">Find My Partner →</button>
+  </div>
+
+  <!-- PANEL 3 -->
+
+  <div class="calc-panel-wrap" id="panel-3">
+    <div class="panel-header"><div class="panel-title">🎯 Serve Speed Calculator</div><button class="panel-close" onclick="closePanel(3)">✕</button></div>
+    <p style="font-size:0.78rem;color:var(--muted);margin-bottom:16px;line-height:1.6;">Have a friend time from your contact point to when the ball reaches them, or estimate from slow-motion video. Enter distance and travel time below.</p>
+    <div class="f-grid">
+      <div class="f-field"><label class="f-label">Court distance (feet)</label><select class="f-select" id="p3-dist"><option value="44">44 ft – full court serve</option><option value="22">22 ft – half court</option><option value="34">34 ft – mid-court drive</option></select></div>
+      <div class="f-field"><label class="f-label">Travel time (seconds)</label><input class="f-input" type="number" id="p3-time" placeholder="e.g. 0.55" step="0.01" min="0.1" max="3" value="0.55"></div>
+      <div class="f-field"><label class="f-label">Your skill level</label><select class="f-select" id="p3-level"><option value="2.5">2.5 – Beginner</option><option value="3.0">3.0 – Recreational</option><option value="3.5" selected>3.5 – Intermediate</option><option value="4.0">4.0 – Advanced</option><option value="4.5">4.5 – Tournament</option><option value="5.0">5.0+ – Elite</option></select></div>
+      <div class="f-field"><label class="f-label">Display unit</label><select class="f-select" id="p3-unit"><option value="mph">MPH</option><option value="kph">KPH</option></select></div>
+    </div>
+    <button class="go-btn" onclick="fireGate(3)">Calculate Speed →</button>
+  </div>
+
+  <!-- PANEL 4 -->
+
+  <div class="calc-panel-wrap" id="panel-4">
+    <div class="panel-header"><div class="panel-title">🔥 Calorie Burn Calculator</div><button class="panel-close" onclick="closePanel(4)">✕</button></div>
+    <div class="f-grid">
+      <div class="f-field"><label class="f-label">Your weight</label><input class="f-input" type="number" id="p4-w" placeholder="150" value="150" min="80" max="400"></div>
+      <div class="f-field"><label class="f-label">Weight unit</label><select class="f-select" id="p4-unit"><option value="lbs">Pounds (lbs)</option><option value="kg">Kilograms (kg)</option></select></div>
+      <div class="f-field"><label class="f-label">Session length (minutes)</label><input class="f-input" type="number" id="p4-mins" placeholder="60" value="60" min="5" max="300"></div>
+      <div class="f-field"><label class="f-label">Intensity</label><select class="f-select" id="p4-int"><option value="3.5">Casual / rec doubles</option><option value="5.0" selected>Moderate / mixed</option><option value="6.5">Competitive singles</option><option value="8.0">Tournament / drills</option></select></div>
+    </div>
+    <button class="go-btn" onclick="fireGate(4)">Calculate Calories →</button>
+  </div>
+
+  <!-- PANEL 5 -->
+
+  <div class="calc-panel-wrap" id="panel-5">
+    <div class="panel-header"><div class="panel-title">🏓 Paddle Power Score</div><button class="panel-close" onclick="closePanel(5)">✕</button></div>
+    <p style="font-size:0.78rem;color:var(--muted);margin-bottom:16px;line-height:1.6;">Rate your current paddle on each dimension 1–5. We'll give you a composite score and upgrade guidance.</p>
+    <div class="f-field" style="margin-bottom:12px"><label class="f-label">Power / pop</label><div class="pills-row" id="g5-pow"><button class="pill-btn" data-v="1" onclick="setPill('g5-pow',this)">1</button><button class="pill-btn" data-v="2" onclick="setPill('g5-pow',this)">2</button><button class="pill-btn on" data-v="3" onclick="setPill('g5-pow',this)">3</button><button class="pill-btn" data-v="4" onclick="setPill('g5-pow',this)">4</button><button class="pill-btn" data-v="5" onclick="setPill('g5-pow',this)">5</button></div></div>
+    <div class="f-field" style="margin-bottom:12px"><label class="f-label">Control / touch</label><div class="pills-row" id="g5-ctrl"><button class="pill-btn" data-v="1" onclick="setPill('g5-ctrl',this)">1</button><button class="pill-btn" data-v="2" onclick="setPill('g5-ctrl',this)">2</button><button class="pill-btn on" data-v="3" onclick="setPill('g5-ctrl',this)">3</button><button class="pill-btn" data-v="4" onclick="setPill('g5-ctrl',this)">4</button><button class="pill-btn" data-v="5" onclick="setPill('g5-ctrl',this)">5</button></div></div>
+    <div class="f-field" style="margin-bottom:12px"><label class="f-label">Sweet spot size</label><div class="pills-row" id="g5-sweet"><button class="pill-btn" data-v="1" onclick="setPill('g5-sweet',this)">1</button><button class="pill-btn" data-v="2" onclick="setPill('g5-sweet',this)">2</button><button class="pill-btn on" data-v="3" onclick="setPill('g5-sweet',this)">3</button><button class="pill-btn" data-v="4" onclick="setPill('g5-sweet',this)">4</button><button class="pill-btn" data-v="5" onclick="setPill('g5-sweet',this)">5</button></div></div>
+    <div class="f-field" style="margin-bottom:12px"><label class="f-label">Spin generation</label><div class="pills-row" id="g5-spin"><button class="pill-btn" data-v="1" onclick="setPill('g5-spin',this)">1</button><button class="pill-btn" data-v="2" onclick="setPill('g5-spin',this)">2</button><button class="pill-btn on" data-v="3" onclick="setPill('g5-spin',this)">3</button><button class="pill-btn" data-v="4" onclick="setPill('g5-spin',this)">4</button><button class="pill-btn" data-v="5" onclick="setPill('g5-spin',this)">5</button></div></div>
+    <div class="f-field" style="margin-bottom:16px"><label class="f-label">Weight & balance feel</label><div class="pills-row" id="g5-bal"><button class="pill-btn" data-v="1" onclick="setPill('g5-bal',this)">1</button><button class="pill-btn" data-v="2" onclick="setPill('g5-bal',this)">2</button><button class="pill-btn on" data-v="3" onclick="setPill('g5-bal',this)">3</button><button class="pill-btn" data-v="4" onclick="setPill('g5-bal',this)">4</button><button class="pill-btn" data-v="5" onclick="setPill('g5-bal',this)">5</button></div></div>
+    <div class="f-field" style="margin-bottom:18px"><label class="f-label">Your skill level</label><select class="f-select" id="p5-level"><option value="beg">2.5–3.0 Beginner</option><option value="int" selected>3.0–3.5 Intermediate</option><option value="adv">3.5–4.5 Advanced</option><option value="pro">4.5+ Tournament</option></select></div>
+    <button class="go-btn" onclick="fireGate(5)">Get My Paddle Score →</button>
+  </div>
+
+  <!-- RESULTS -->
+
+  <div class="result-wrap" id="resultWrap">
+    <div class="result-hero">
+      <div class="r-label" id="rLabel">Your Result</div>
+      <div class="r-big" id="rBig">—</div>
+      <div class="r-tier" id="rTier">—</div>
+    </div>
+    <div class="stat-row">
+      <div class="stat-box"><div class="s-label" id="s1l">—</div><div class="s-val" id="s1v">—</div></div>
+      <div class="stat-box"><div class="s-label" id="s2l">—</div><div class="s-val" id="s2v">—</div></div>
+      <div class="stat-box"><div class="s-label" id="s3l">—</div><div class="s-val" id="s3v">—</div></div>
+    </div>
+    <div class="insights-box"><h3 id="insightTitle">Key Takeaways</h3><ul id="insightList"></ul></div>
+    <div class="aff-strip">
+      <div class="aff-strip-hd">Level up your game — recommended gear</div>
+      <div class="aff-grid">
+        <!-- REPLACE href with your affiliate links from selkirk.com affiliate program, pickleballcentral.com, or Amazon Associates -->
+        <a class="aff-card" href="https://gearboxsports.com/?rfsn=8717726.bff767" target="_blank" rel="nofollow sponsored"><span class="a-icon">🏓</span><div class="a-name">Gearbox Sports</div><div class="a-desc">Premium pickleball paddles — pro-level performance</div><span class="a-cta">Shop Paddles →</span></a>
+        <a class="aff-card" href="https://www.pickleballcentral.com" target="_blank" rel="nofollow sponsored"><span class="a-icon">🛒</span><div class="a-name">Pickleball Central</div><div class="a-desc">Largest selection of gear, balls & accessories</div><span class="a-cta">Browse Gear →</span></a>
+        <a class="aff-card" href="https://www.amazon.com/s?k=pickleball+paddle&tag=YOUR-AMAZON-TAG" target="_blank" rel="nofollow sponsored"><span class="a-icon">📦</span><div class="a-name">Amazon Pickleball</div><div class="a-desc">Fast shipping on paddles, balls & court shoes</div><span class="a-cta">Shop Amazon →</span></a>
+      </div>
+    </div>
+    <div class="ad-box" style="margin-bottom:11px;">Google AdSense — 300×250 Rectangle — paste your ad code here</div>
+    <button class="reset-btn" onclick="resetAll()">← Try Another Calculator</button>
+  </div>
+
+</main>
+
+<div class="ad-zone" style="margin-top:0"><div class="ad-box">Google AdSense — 728×90 Leaderboard — paste your ad code here</div></div>
+
+<footer>
+  <div class="footer-logo"><span style="width:17px;height:17px;background:var(--yellow);border-radius:50%;box-shadow:0 0 9px rgba(253,224,71,0.4);display:inline-block;"></span>PickleballCalc</div>
+  <div class="footer-links"><a href="#about">About</a><a href="#privacy">Privacy Policy</a><a href="#contact">Contact</a><a href="#disclaimer">Disclaimer</a></div>
+  <div class="footer-copy">© 2026 PickleballCalc.com &nbsp;·&nbsp; Results are self-reported estimates only &nbsp;·&nbsp; Not affiliated with DUPR or USA Pickleball &nbsp;·&nbsp; <a href="mailto:hello@pickleballcalculators.com" style="color:inherit">hello@pickleballcalculators.com</a></div>
+</footer>
+
+<div class="gate" id="gate">
+  <div class="gate-box">
+    <div class="gate-ball">🏓</div>
+    <h2>Your results are ready!</h2>
+    <p>Enter your email to unlock your <span class="gate-tool-name" id="gateToolName">results</span> — plus free weekly tips to move up a skill level.</p>
+    <input type="email" class="gate-input" id="gateEmail" placeholder="your@email.com">
+    <button class="gate-btn" onclick="submitGate()">Unlock My Results →</button>
+    <div class="gate-fine">No spam. Unsubscribe anytime. We never sell your data.</div>
+  </div>
+</div>
+
+<script>
+let activeTool=-1,pendingTool=-1;
+const TOOL_NAMES=['Skill Rating','Win Probability','Ideal Partner','Serve Speed','Calorie Burn','Paddle Score'];
+
+function scrollToTools(){document.getElementById('toolsSection').scrollIntoView({behavior:'smooth'});}
+
+function openTool(i){
+  if(activeTool>=0&&activeTool!==i){
+    document.getElementById('panel-'+activeTool).classList.remove('open');
+    document.getElementById('card-'+activeTool).classList.remove('active-card');
+  }
+  document.getElementById('resultWrap').classList.remove('show');
+  if(activeTool===i){
+    document.getElementById('panel-'+i).classList.remove('open');
+    document.getElementById('card-'+i).classList.remove('active-card');
+    activeTool=-1;
+  } else {
+    document.getElementById('panel-'+i).classList.add('open');
+    document.getElementById('card-'+i).classList.add('active-card');
+    activeTool=i;
+    setTimeout(()=>document.getElementById('panel-'+i).scrollIntoView({behavior:'smooth',block:'nearest'}),80);
+  }
+  document.querySelectorAll('.nav-pill').forEach((p,idx)=>p.classList.toggle('active',idx===i+1));
+}
+
+function closePanel(i){
+  document.getElementById('panel-'+i).classList.remove('open');
+  document.getElementById('card-'+i).classList.remove('active-card');
+  activeTool=-1;
+  document.querySelectorAll('.nav-pill').forEach((p,idx)=>p.classList.toggle('active',idx===0));
+}
+
+function setPill(g,btn){document.querySelectorAll('#'+g+' .pill-btn').forEach(b=>b.classList.remove('on'));btn.classList.add('on');}
+function getPillVal(g){const a=document.querySelector('#'+g+' .pill-btn.on');return a?parseFloat(a.dataset.v):0;}
+
+function fireGate(t){
+  pendingTool=t;
+  document.getElementById('gateToolName').textContent=TOOL_NAMES[t];
+  document.getElementById('gateEmail').value='';
+  document.getElementById('gateEmail').classList.remove('err');
+  document.getElementById('gate').classList.add('show');
+  setTimeout(()=>document.getElementById('gateEmail').focus(),280);
+}
+
+document.getElementById('gateEmail').addEventListener('keydown',e=>{if(e.key==='Enter')submitGate();});
+
+function submitGate(){
+  const email=document.getElementById('gateEmail').value.trim();
+  if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){document.getElementById('gateEmail').classList.add('err');return;}
+
+  /* ============================================================
+     CONVERTKIT SETUP — 3 steps:
+     1. Sign up free at convertkit.com
+     2. Create a Form → copy the numeric Form ID from the URL
+     3. Go to Settings → API → copy your Public API Key
+     Replace YOUR_FORM_ID and YOUR_PUBLIC_API_KEY below
+     ============================================================ */
+  fetch('https://api.convertkit.com/v3/forms/9332094/subscribe', {
+    method: 'POST',
+    headers: {'Content-Type': 'application/json'},
+    body: JSON.stringify({
+      api_key: 'bwo2Bvbsl1AthBX4y5jcyw',
+      email: email,
+      fields: {
+        tool: TOOL_NAMES[pendingTool]
+      }
+    })
+  })
+  .then(res => res.json())
+  .then(data => console.log(data))
+  .catch(err => console.error(err));
+
+  document.getElementById('gate').classList.remove('show');
+  compute(pendingTool);
+  setTimeout(()=>document.getElementById('resultWrap').scrollIntoView({behavior:'smooth',block:'start'}),60);
+}
+
+function compute(t){
+  let label='',big='',tier='',s1l='',s1v='',s2l='',s2v='',s3l='',s3v='',insTitle='',insItems=[];
+
+  if(t===0){
+    const yr=parseFloat(document.getElementById('p0-y').value);
+    const dy=parseFloat(document.getElementById('p0-d').value);
+    const bg=parseFloat(document.getElementById('p0-bg').value);
+    const bt=parseFloat(document.getElementById('p0-beat').value);
+    const dk=getPillVal('g0-dink'),dr=getPillVal('g0-drop');
+    let sc=2.0+Math.min(yr*0.11,1.0)+Math.min(dy*0.06,0.35)+bg+(bt-2.5)*0.42+dk+dr;
+    sc=Math.max(2.0,Math.min(6.5,Math.round(sc*10)/10));
+    const tm=sc<3?'Beginner':sc<3.5?'Beginner+':sc<4?'Intermediate':sc<4.5?'Intermediate+':sc<5?'Advanced':'Elite';
+    const pc=sc<3?'~80th pct':sc<3.5?'~60th pct':sc<4?'~40th pct':sc<4.5?'~20th pct':sc<5?'~8th pct':'~2nd pct';
+    const nx=(Math.ceil(sc*2)/2).toFixed(1);
+    label='Estimated DUPR Rating';big=sc.toFixed(1);tier=tm;
+    s1l='Range';s1v=(Math.floor(sc*2)/2).toFixed(1)+'–'+nx;s2l='Percentile';s2v=pc;s3l='Next Level';s3v=nx;
+    insTitle='How to reach '+nx;
+    insItems=sc<3?['Focus on keeping the ball in play — consistency beats power every time','Practice dinking 15 min every session before moving to hard shots','Watch free drill videos from Ben Johns or Tyson McGuffin on YouTube']:sc<3.5?['The third shot drop is your #1 lever — drill it 3× per week','Join a local rec league to get match reps against varied styles','Kitchen patience is your edge — resist attacking too early']:sc<4?['Learn the Erne and ATP to win points others at your level can\'t','Enter DUPR-rated events to build an official profile','Video your own play — most 3.5–4.0 players have 1–2 fixable habits']:sc<4.5?['Target the backhand shoulder consistently — most underused shot at this level','2–3 sessions with a certified PB pro has high ROI at this rating','Track unforced error rate, 3rd shot %, and kitchen arrival time per rally']:['Your footwork and reset game separates you — drill ATP recoveries weekly','Enter state-level sanctioned events to attract better competition','Consider posting content — pickleball audiences are massive and engaged'];
+
+  } else if(t===1){
+    const a=parseFloat(document.getElementById('p1-a').value)||3.8;
+    const b=parseFloat(document.getElementById('p1-b').value)||4.1;
+    const h=parseFloat(document.getElementById('p1-home').value);
+    const s=parseFloat(document.getElementById('p1-surf').value);
+    const diff=(a-b)+h+s;
+    const win=Math.max(5,Math.min(95,Math.round(50+diff*23)));
+    label='Win Probability';big=win+'%';tier=win>=60?'Favored':win>=45?'Toss-up':'Underdog';
+    s1l='Your Team';s1v=a.toFixed(1)+' DUPR';s2l='Opponents';s2v=b.toFixed(1)+' DUPR';s3l='Rating Gap';s3v=(a-b>0?'+':'')+(a-b).toFixed(1);
+    insTitle='Match Strategy';
+    insItems=diff>0.3?['Establish tempo early — win the first 3 points and own the momentum','Target the weaker opponent consistently to open the court','Control the kitchen: the team at the NVZ first wins ~60% of rallies']:diff>-0.3?['This is a coin-flip — your first 5 points set the tone','Stack and poach aggressively on serves to disrupt their rhythm','Fewer unforced errors wins this match — consistency over winners']:['Slow the game down — they want fast exchanges where their edge shows','Lob more than usual — higher-rated players hate pace disruption','Win the mental game: stay relaxed, make them feel every point'];
+
+  } else if(t===2){
+    const du=parseFloat(document.getElementById('p2-d').value)||3.5;
+    const gl=document.getElementById('p2-goal').value;
+    const bo={win:-0.1,improve:0.35,compete:0.5,fun:-0.2}[gl];
+    const id=Math.round((du+bo)*10)/10;
+    label='Ideal Partner DUPR';big=id.toFixed(1);
+    tier=gl==='improve'?'Growth Zone':gl==='compete'?'Challenge Mode':gl==='win'?'Comfort Zone':'Fun Zone';
+    s1l='Your Rating';s1v=du.toFixed(1);s2l='Target Range';s2v=(id-0.2).toFixed(1)+'–'+(id+0.2).toFixed(1);s3l='Goal';s3v=gl.charAt(0).toUpperCase()+gl.slice(1);
+    insTitle='Partner Tips';
+    insItems=gl==='improve'?['Playing 0.3–0.5 above your level forces faster decision-making','Debrief every 3 games — "what lost us points?" is the most useful question','Rotate drilling partners monthly to prevent habits from locking in']:gl==='compete'?['Drill stacking and switching weekly — tournaments expose it fast','Simulate tiebreak pressure: play sets to 1, rotate serve','Agree on who covers the middle before every match — communication wins']:gl==='win'?['A partner slightly below your level means you control more balls — use that confidence','Build a team identity around your two strongest shots together','Celebrate wins loudly — positive reinforcement builds consistency']:['Near-level partners give you the most long rallies and genuine fun','Rotate partners to keep things fresh — variety is the heart of rec pickleball','Post-game food or drinks is the #1 driver of consistent attendance'];
+
+  } else if(t===3){
+    const di=parseFloat(document.getElementById('p3-dist').value);
+    const ti=parseFloat(document.getElementById('p3-time').value)||0.55;
+    const un=document.getElementById('p3-unit').value;
+    const lv=parseFloat(document.getElementById('p3-level').value);
+    const mph=(di/ti)*0.681818;
+    const spd=un==='mph'?mph:mph*1.60934;
+    const avgs={2.5:28,3.0:34,3.5:40,4.0:48,4.5:55,5.0:65};
+    const avg=avgs[lv]||40;
+    const avgU=un==='mph'?avg:Math.round(avg*1.60934);
+    label='Estimated Ball Speed';big=Math.round(spd)+(un==='mph'?' mph':' kph');
+    tier=spd>avgU?'Above avg for '+lv+' DUPR':'Below avg for '+lv+' DUPR';
+    s1l='Distance';s1v=di+' ft';s2l='Travel Time';s2v=ti+'s';s3l='Avg at '+lv;s3v=avgU+(un==='mph'?' mph':' kph');
+    insTitle='Speed Tips';
+    insItems=['Drive power comes from hip rotation, not just arm swing','A faster serve gives opponents ~0.1s less reaction time — use it early','Work on consistency at your current speed before chasing higher MPH','Flat drives at the sideline are more effective than hard serves down the middle'];
+
+  } else if(t===4){
+    let wt=parseFloat(document.getElementById('p4-w').value)||150;
+    const un=document.getElementById('p4-unit').value;
+    const mn=parseFloat(document.getElementById('p4-mins').value)||60;
+    const mt=parseFloat(document.getElementById('p4-int').value);
+    const kg=un==='lbs'?wt*0.453592:wt;
+    const cal=Math.round(mt*kg*(mn/60));
+    label='Calories Burned';big=cal.toLocaleString();
+    tier='~'+Math.round(cal/250)+' slices of pizza equivalent';
+    s1l='Per Minute';s1v=Math.round(cal/mn*10)/10+' cal';s2l='Session';s2v=mn+' min';s3l='MET Score';s3v=mt;
+    insTitle='Health Insights';
+    insItems=['Pickleball burns ~40% more calories than walking at the same duration','Competitive singles burns roughly 2× more than casual doubles','Staying hydrated adds ~8–12% more burn efficiency during play',cal>400?'Great session — you\'re in solid cardio territory':'Add 15 more minutes to push into a stronger cardio zone'];
+
+  } else if(t===5){
+    const p=getPillVal('g5-pow'),c=getPillVal('g5-ctrl'),sw=getPillVal('g5-sweet'),sp=getPillVal('g5-spin'),w=getPillVal('g5-bal');
+    const tot=Math.round(((p+c+sw+sp+w)/25)*100);
+    const vals=[p,c,sw,sp,w];
+    const names=['Power','Control','Sweet spot','Spin','Weight balance'];
+    const weakIdx=vals.indexOf(Math.min(...vals));
+    const wk=names[weakIdx];
+    const lv=document.getElementById('p5-level').value;
+    label='Paddle Power Score';big=tot+'/100';
+    tier=tot>=80?'Pro-Grade':tot>=60?'Solid Performer':tot>=40?'Mid-Range':'Entry Level';
+    s1l='Weakest Stat';s1v=wk;s2l='Power';s2v=p+'/5';s3l='Control';s3v=c+'/5';
+    insTitle='Paddle Upgrade Guide';
+    const tips=wk==='Power'?['Carbon fiber face with polymer core = most power per dollar','Elongated shape (16.5"+) adds ~10–15% more leverage on drives']:wk==='Control'?['Fiberglass or hybrid faces offer better touch for dinking','Shorter body (under 16") trades reach for precision']:wk==='Sweet spot'?['Wider body (8"+) dramatically increases forgiveness on off-center hits','Polypropylene honeycomb cores tend to have the largest sweet spot']:wk==='Spin'?['Raw carbon or T700 faces produce the most spin — look for textured surface','Topspin requires a slightly open face at contact, not just a rough surface']:['Re-gripping your paddle changes weight balance dramatically','Mid-weight (7.6–8.2 oz) is the sweet spot for most players'];
+    const lvTip=lv==='beg'?'At your stage, any $40–80 paddle is fine — court time matters more than gear':lv==='int'?'Budget $80–130 for your next upgrade — you\'ll feel the difference immediately':lv==='adv'?'A $130–180 pro paddle is worth it at your level — you can exploit the gains':'At tournament level, weight, balance, and surface texture matter significantly — test before buying';
+    insItems=[...tips,lvTip,tot>=80?'Your current paddle is excellent — focus on technique, not gear':'Upgrading your weakest stat could add 0.1–0.2 to your effective DUPR'];
+  }
+
+  document.getElementById('rLabel').textContent=label;
+  document.getElementById('rBig').textContent=big;
+  document.getElementById('rTier').textContent=tier;
+  document.getElementById('s1l').textContent=s1l;document.getElementById('s1v').textContent=s1v;
+  document.getElementById('s2l').textContent=s2l;document.getElementById('s2v').textContent=s2v;
+  document.getElementById('s3l').textContent=s3l;document.getElementById('s3v').textContent=s3v;
+  document.getElementById('insightTitle').textContent=insTitle;
+  document.getElementById('insightList').innerHTML=insItems.map(i=>'<li>'+i+'</li>').join('');
+  document.getElementById('resultWrap').classList.add('show');
+}
+
+function resetAll(){
+  document.getElementById('resultWrap').classList.remove('show');
+  document.getElementById('toolsSection').scrollIntoView({behavior:'smooth'});
+}
+</script>
+
+</body>
+</html>
