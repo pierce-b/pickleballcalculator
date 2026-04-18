@@ -167,6 +167,17 @@ footer{position:relative;z-index:2;border-top:1px solid var(–border);padding:2
 .footer-copy{width:100%;font-size:0.67rem;color:rgba(240,253,244,0.14);letter-spacing:0.05em;}
 </style>
 
+<!-- Google Analytics -->
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-5SXSNMKYC9"></script>
+
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-5SXSNMKYC9');
+</script>
+
 </head>
 <body>
 
@@ -323,7 +334,7 @@ footer{position:relative;z-index:2;border-top:1px solid var(–border);padding:2
 
 <footer>
   <div class="footer-logo"><span style="width:17px;height:17px;background:var(--yellow);border-radius:50%;box-shadow:0 0 9px rgba(253,224,71,0.4);display:inline-block;"></span>PickleballCalc</div>
-  <div class="footer-links"><a href="#about">About</a><a href="#privacy">Privacy Policy</a><a href="#contact">Contact</a><a href="#disclaimer">Disclaimer</a></div>
+  <div class="footer-links"><a href="#about">About</a><a href="#" onclick="document.getElementById('privacyModal').style.display='flex';return false;">Privacy Policy</a><a href="#contact">Contact</a><a href="#disclaimer">Disclaimer</a></div>
   <div class="footer-copy">© 2026 PickleballCalc.com &nbsp;·&nbsp; Results are self-reported estimates only &nbsp;·&nbsp; Not affiliated with DUPR or USA Pickleball &nbsp;·&nbsp; <a href="mailto:hello@pickleballcalculators.com" style="color:inherit">hello@pickleballcalculators.com</a></div>
 </footer>
 
@@ -510,5 +521,41 @@ function resetAll(){
 }
 </script>
 
+<!-- Privacy Policy Modal -->
+
+<div id="privacyModal" style="display:none;position:fixed;inset:0;z-index:300;background:rgba(5,10,7,0.96);backdrop-filter:blur(10px);align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto;">
+  <div style="background:#111B14;border:1px solid rgba(74,222,128,0.28);border-radius:14px;padding:40px 36px;max-width:640px;width:100%;margin:40px auto;position:relative;">
+    <button onclick="document.getElementById('privacyModal').style.display='none'" style="position:absolute;top:16px;right:16px;width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,0.05);border:1px solid rgba(74,222,128,0.2);color:#F0FDF4;font-size:1rem;cursor:pointer;">✕</button>
+    <h2 style="font-family:'Syne',sans-serif;font-weight:700;font-size:1.4rem;margin-bottom:6px;color:#F0FDF4;">Privacy Policy</h2>
+    <p style="font-size:0.72rem;color:rgba(240,253,244,0.4);margin-bottom:24px;letter-spacing:0.05em;">Last updated: April 2026</p>
+
+```
+<div style="font-size:0.84rem;color:rgba(240,253,244,0.6);line-height:1.8;">
+
+  <h3 style="font-family:'Syne',sans-serif;color:#4ADE80;font-size:0.9rem;margin:0 0 8px;">1. Information We Collect</h3>
+  <p style="margin-bottom:20px;">When you use our calculators, we collect your email address voluntarily submitted through our email gate. We also collect anonymous usage data through Google Analytics including pages visited, time on site, and general location (country/city level).</p>
+
+  <h3 style="font-family:'Syne',sans-serif;color:#4ADE80;font-size:0.9rem;margin:0 0 8px;">2. How We Use Your Information</h3>
+  <p style="margin-bottom:20px;">Your email address is used to send you pickleball tips and occasional product recommendations. We never sell your email to third parties. Anonymous analytics data is used solely to improve the site experience.</p>
+
+  <h3 style="font-family:'Syne',sans-serif;color:#4ADE80;font-size:0.9rem;margin:0 0 8px;">3. Cookies</h3>
+  <p style="margin-bottom:20px;">This site uses Google Analytics cookies to understand how visitors use the site. These cookies collect anonymous data only. You can opt out of Google Analytics by installing the <a href="https://tools.google.com/dlpage/gaoptout" target="_blank" style="color:#4ADE80;">Google Analytics opt-out browser add-on</a>.</p>
+
+  <h3 style="font-family:'Syne',sans-serif;color:#4ADE80;font-size:0.9rem;margin:0 0 8px;">4. Third-Party Links</h3>
+  <p style="margin-bottom:20px;">Our site contains affiliate links to third-party retailers including Gearbox Sports, Pickleball Central, and Amazon. We may earn a commission if you make a purchase through these links at no extra cost to you. These sites have their own privacy policies.</p>
+
+  <h3 style="font-family:'Syne',sans-serif;color:#4ADE80;font-size:0.9rem;margin:0 0 8px;">5. Data Retention</h3>
+  <p style="margin-bottom:20px;">Email addresses are stored securely and retained until you unsubscribe. You can unsubscribe at any time by emailing us or clicking the unsubscribe link in any email we send.</p>
+
+  <h3 style="font-family:'Syne',sans-serif;color:#4ADE80;font-size:0.9rem;margin:0 0 8px;">6. Children's Privacy</h3>
+  <p style="margin-bottom:20px;">This site is not directed at children under 13. We do not knowingly collect personal information from children under 13.</p>
+
+  <h3 style="font-family:'Syne',sans-serif;color:#4ADE80;font-size:0.9rem;margin:0 0 8px;">7. Contact</h3>
+  <p style="margin-bottom:0;">If you have any questions about this Privacy Policy, contact us at <a href="mailto:hello@pickleballcalculators.com" style="color:#4ADE80;">hello@pickleballcalculators.com</a></p>
+</div>
+```
+
+  </div>
+</div>
 </body>
 </html>
