@@ -394,19 +394,16 @@ function submitGate(){
      3. Go to Settings → API → copy your Public API Key
      Replace YOUR_FORM_ID and YOUR_PUBLIC_API_KEY below
      ============================================================ */
-  // Formspree — works from any static site, no CORS issues
-  const formData = new FormData();
-  formData.append('email', email);
-  formData.append('tool', TOOL_NAMES[pendingTool]);
+  // Google Forms submission — no CORS issues, goes straight to your Google Sheet
+  const gFormData = new FormData();
+  gFormData.append('entry.1903951607', email);
+  gFormData.append('entry.1903951607_sentinel', '');
 
-  fetch('https://formspree.io/f/xvzdalge', {
+  fetch('https://docs.google.com/forms/d/e/1FAIpQLSdr4Q69DaaIM3eZ7O7wsXFsx8P_7r7zoRVqQzagNHNOrOqzNg/formResponse', {
     method: 'POST',
-    body: formData,
-    headers: {'Accept': 'application/json'}
-  })
-  .then(res => res.json())
-  .then(data => console.log('Formspree:', data))
-  .catch(err => console.error(err));
+    body: gFormData,
+    mode: 'no-cors'
+  }).catch(() => {});
 
   document.getElementById('gate').classList.remove('show');
   compute(pendingTool);
