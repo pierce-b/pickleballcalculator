@@ -387,22 +387,16 @@ function submitGate(){
   const email=document.getElementById('gateEmail').value.trim();
   if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){document.getElementById('gateEmail').classList.add('err');return;}
 
-  /* ============================================================
-     CONVERTKIT SETUP — 3 steps:
-     1. Sign up free at convertkit.com
-     2. Create a Form → copy the numeric Form ID from the URL
-     3. Go to Settings → API → copy your Public API Key
-     Replace YOUR_FORM_ID and YOUR_PUBLIC_API_KEY below
-     ============================================================ */
-  // Google Forms submission — no CORS issues, goes straight to your Google Sheet
+  // Google Forms — emails go straight to your Google Sheet
   const gFormData = new FormData();
   gFormData.append('entry.1903951607', email);
-  gFormData.append('entry.1903951607_sentinel', '');
 
   fetch('https://docs.google.com/forms/d/e/1FAIpQLSdr4Q69DaaIM3eZ7O7wsXFsx8P_7r7zoRVqQzagNHNOrOqzNg/formResponse', {
     method: 'POST',
     body: gFormData,
     mode: 'no-cors'
+  }).then(() => {
+    console.log('Submitted to Google Forms:', email);
   }).catch(() => {});
 
   document.getElementById('gate').classList.remove('show');
