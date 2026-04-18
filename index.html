@@ -81,7 +81,8 @@ h1 .line2{color:var(–g);display:block;}
 @media(max-width:460px){.f-grid{grid-template-columns:1fr;}}
 .f-field{display:flex;flex-direction:column;gap:7px;}
 .f-label{font-size:0.68rem;letter-spacing:0.13em;text-transform:uppercase;color:var(–muted);}
-.f-input,.f-select{background:rgba(255,255,255,0.04);border:1px solid rgba(74,222,128,0.14);border-radius:6px;color:var(–white);font-family:‘DM Sans’,sans-serif;font-size:0.93rem;padding:11px 13px;outline:none;transition:border 0.18s;-webkit-appearance:none;appearance:none;}
+.f-input,.f-select{background:rgba(255,255,255,0.04);border:1px solid rgba(74,222,128,0.14);border-radius:6px;color:#F0FDF4 !important;-webkit-text-fill-color:#F0FDF4 !important;font-family:‘DM Sans’,sans-serif;font-size:0.93rem;padding:11px 13px;outline:none;transition:border 0.18s;-webkit-appearance:none;appearance:none;}
+.f-input:-webkit-autofill,.f-input:-webkit-autofill:hover,.f-input:-webkit-autofill:focus{-webkit-text-fill-color:#F0FDF4 !important;-webkit-box-shadow:0 0 0px 1000px #111B14 inset !important;transition:background-color 5000s ease-in-out 0s;}
 .f-select{background-image:url(“data:image/svg+xml,%3Csvg xmlns=‘http://www.w3.org/2000/svg’ width=‘10’ height=‘6’%3E%3Cpath d=‘M0 0l5 6 5-6z’ fill=’%234ADE80’ opacity=’.45’/%3E%3C/svg%3E”);background-repeat:no-repeat;background-position:right 12px center;padding-right:30px;cursor:pointer;}
 .f-select option{background:#111B14;}
 .f-input:focus,.f-select:focus{border-color:var(–g);}
@@ -98,8 +99,8 @@ input[type=range]::-webkit-slider-thumb:hover{transform:scale(1.25);}
 /* PILLS */
 .pills-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:15px;}
 .pill-btn{padding:7px 13px;border:1px solid rgba(74,222,128,0.16);border-radius:100px;background:none;color:var(–muted);font-family:‘DM Sans’,sans-serif;font-size:0.76rem;cursor:pointer;transition:all 0.14s;}
-.pill-btn:hover{border-color:var(–g);color:var(–white);}
-.pill-btn.on{border-color:var(–g);background:var(–glow);color:var(–g);}
+.pill-btn:hover{border-color:var(–g);color:var(–white);background:rgba(74,222,128,0.08);}
+.pill-btn.on{border-color:var(–g);background:var(–g);color:#052e16 !important;font-weight:600;box-shadow:0 0 14px rgba(74,222,128,0.35);transform:scale(1.05);}
 
 /* GO BTN */
 .go-btn{width:100%;padding:15px;background:var(–g);border:none;border-radius:8px;color:#052e16;font-family:‘Syne’,sans-serif;font-weight:700;font-size:0.86rem;letter-spacing:0.07em;text-transform:uppercase;cursor:pointer;transition:all 0.18s;margin-top:6px;}
