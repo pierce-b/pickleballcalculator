@@ -394,20 +394,19 @@ function submitGate(){
      3. Go to Settings → API → copy your Public API Key
      Replace YOUR_FORM_ID and YOUR_PUBLIC_API_KEY below
      ============================================================ */
-  // Kit embed method — works from any hosted site, no CORS issues
-  const ckScript = document.createElement('script');
-  ckScript.src = 'https://f.convertkit.com/ckjs/ck.5.js';
-  document.head.appendChild(ckScript);
-
+  // Formspree — works from any static site, no CORS issues
   const formData = new FormData();
-  formData.append('email_address', email);
-  formData.append('fields[tool]', TOOL_NAMES[pendingTool]);
+  formData.append('email', email);
+  formData.append('tool', TOOL_NAMES[pendingTool]);
 
-  fetch('https://app.kit.com/forms/ff3f19a7c4/subscriptions', {
+  fetch('https://formspree.io/f/xvzdalge', {
     method: 'POST',
     body: formData,
-    mode: 'no-cors'
-  }).catch(() => {});
+    headers: {'Accept': 'application/json'}
+  })
+  .then(res => res.json())
+  .then(data => console.log('Formspree:', data))
+  .catch(err => console.error(err));
 
   document.getElementById('gate').classList.remove('show');
   compute(pendingTool);
